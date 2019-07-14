@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Mian",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "oneHundred_f46775d9"
+            "console": "externalTerminal"
+        }
+    ]
+}
