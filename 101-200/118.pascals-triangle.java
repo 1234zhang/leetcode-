@@ -19,6 +19,8 @@ class Solution {
             for(int j = 1; j < rowNum; j++){
                 row.add(proRow.get(j) + proRow.get(j - 1));
             }
+
+            
             row.add(1);
             res.add(row);
         }
