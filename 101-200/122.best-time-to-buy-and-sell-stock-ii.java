@@ -5,6 +5,9 @@
  */
 class Solution {
     public int maxProfit(int[] prices) {
+        if(prices.length == 0){
+            return 0;
+        }
         int i = 0;
         int valley = prices[0];
         int peak = prices[0];
