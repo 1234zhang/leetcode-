@@ -3,28 +3,30 @@
  *
  * [6] ZigZag Conversion
  */
+import java.util.List;
+import java.util.ArrayList;
 class Solution {
     public String convert(String s, int numRows) {
-        if(s.equals("") && s.length() <= 1){
-            return s;
-        }
-        if(numRows == 1){
-            return s;
-        }
-        double n = Math.ceil(s.length()/(2 * (double)numRows - 2));
-        
-        String[] subStr = new String[(int)n];
-        for (int i = 0; i < n; i++) {
-            if(s.length() < (i + 1) * (2 * numRows - 2)){
-                subStr[i] = s.substring(i*(2 * numRows - 2), (i + 1) * (2 * numRows - 2) + 1);
-            }else{
-                subStr[i] = s.substring(i * (2 * numRows - 2),s.length()); 
-            }
-        }
-        for (int i = 0; i < subStr[0].length(); i++) {
-            
-        }
-        return null;
+       if(numRows == 1) return s;
+       List<StringBuffer> cueList = new ArrayList<>();
+       for (int i = 0; i < Math.min(s.length(),numRows); i++) {
+            cueList.add(new StringBuffer());
+       }
+       
+       int rowLine = 0;
+       boolean isGoingDown = false;
+       for (char c : s.toCharArray()) {
+           cueList.get(rowLine).append(c);
+           if(rowLine == 0 || rowLine == numRows - 1){
+               isGoingDown = !isGoingDown;
+           }
+           rowLine += isGoingDown ? 1 : -1;
+       }
+       StringBuffer sb = new StringBuffer();
+       for (StringBuffer var : cueList) {
+           sb.append(var); 
+       }
+       return sb.toString();
     }
 }
 
