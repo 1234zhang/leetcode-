@@ -37,7 +37,27 @@
  */
 class Solution {
     public ListNode swapPairs(ListNode head) {
-        
+        int length = 2;
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode second = head;
+        ListNode first = head.next;
+        while(first != null){
+            if(length % 2 == 0){
+                int flag = first.val;
+                first.val = second.val;
+                second.val = flag;
+                first = first.next;
+                second = second.next;
+                length++;
+            }else{
+                first = first.next;
+                second = second.next;
+                length++;
+            }
+        }
+        return head;
     }
 }
 
