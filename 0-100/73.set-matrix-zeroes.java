@@ -60,9 +60,35 @@
  * 
  * 
  */
+import java.util.*;
 class Solution {
     public void setZeroes(int[][] matrix) {
-        
+        Set<Integer> row = new HashSet<>();
+        Set<Integer> clomn = new HashSet<>();
+        int n = matrix.length;
+        int m = matrix[0].length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if(matrix[i][j] == 0){
+                    row.add(i);
+                    clomn.add(j);
+                }
+            }
+        }
+        for (Integer i : row) {
+            for (int j = 0; j < m; j++) {
+                if(matrix[i][j] != 0){
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        for (Integer i : clomn) {
+            for (int j = 0; j < n; j++) {
+                if(matrix[j][i] != 0){
+                    matrix[j][i] = 0;
+                }
+            }
+        }
     }
 }
 
