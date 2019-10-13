@@ -54,9 +54,22 @@
  */
 
 // @lc code=start
+import java.util.*;
 class Solution {
+    List<Integer> result = new ArrayList<Integer>();
     public List<Integer> grayCode(int n) {
-        
+        result.add(0);
+        if(n == 0){
+            return result;
+        }
+        int head = 1;
+        for (int i = 0; i < n; i++) {
+            for (int j = result.size() - 1; j >= 0; j--) {
+                result.add(head + result.get(j));
+            }
+            head <<= 1;
+        }
+        return result;
     }
 }
 // @lc code=end
