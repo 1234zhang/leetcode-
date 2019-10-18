@@ -50,9 +50,42 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+import java.util.*;
+
 class Solution {
     public List<TreeNode> generateTrees(int n) {
-        
+        if(n == 0){
+            return new ArrayList<TreeNode>();
+        }
+        List<TreeNode> result = findResult(1, n);
+                System.out.println();
+                return result;
+    }
+
+    public List<TreeNode> findResult(int start, int end){
+        List<TreeNode> result = new ArrayList<TreeNode>();
+        if(start > end){
+            result.add(null);
+            return result;
+        }
+        if(start == end){
+            TreeNode root = new TreeNode(end);
+            result.add(root);
+            return result;
+        }
+        for (int i = start; i <= end; i++) {
+            List<TreeNode> left = findResult(start, i - 1);
+            List<TreeNode> right = findResult(i + 1, end);
+            for (TreeNode leftNode : left) {
+                for (TreeNode  rightNode : right) {
+                    TreeNode root = new TreeNode(i);
+                    root.right = rightNode;
+                    root.left = leftNode;
+                    result.add(root);
+                }
+            }
+        }
+        return result;
     }
 }
 // @lc code=end

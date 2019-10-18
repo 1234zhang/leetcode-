@@ -48,10 +48,12 @@
 class Solution {
     public int numDecodings(String s) {
         char[] chars = s.toCharArray();
-        if(chars[0] == '0') return 0;
+        if(chars[0] == '0'){
+            return 0;
+        }
         int pre = 1;
         int cur = 1;
-        for (int i = 1; i < s.length(); i++) {
+        for (int i = 1; i < chars.length; i++) {
             int temp = cur;
             if(chars[i] == '0'){
                 if(chars[i - 1] == '1' || chars[i - 1] == '2'){
@@ -62,8 +64,7 @@ class Solution {
             }else{
                 if(chars[i - 1] == '1'){
                     cur = cur + pre;
-                }
-                else if(chars[i - 1] == '2' && (chars[i] >= '1' && chars[i] <= '6')){
+                }else if(chars[i - 1] == '2' && (chars[i] >= '1' && chars[i] <= '6')){
                     cur = cur + pre;
                 }
             }
