@@ -48,31 +48,27 @@ import java.util.*;
 class MinStack {
 
     /** initialize your data structure here. */
-    List<Integer> minVal;
+    Stack<Integer> supports;
     Stack<Integer> stack;
-    int min = Integer.MAX_VALUE;
     public MinStack() {
-        minVal = new ArrayList<>();
+        supports = new Stack<>();
         stack = new Stack<>();
     }
     
     public void push(int x) {
-        if(x <= min){
-            minVal.add(x);
-            min = x;
+        if(supports.size() == 0 || x <= supports.peek()){
+            stack.push(x);
+            supports.push(x);
+        }else{
+            stack.push(x);
+            supports.push(supports.peek());
         }
-        stack.push(x);
     }
     
     public void pop() {
-        if(min == stack.peek()){
-            minVal.remove(minVal.size() - 1);
-            if(minVal.size() > 0){
-                min = minVal.get(minVal.size() - 1);
-                stack.pop();
-            }
-        }else{
+        if(!stack.isEmpty()){
             stack.pop();
+            supports.pop();
         }
     }
     
@@ -81,7 +77,7 @@ class MinStack {
     }
     
     public int getMin() {
-        return min;
+        return supports.peek();
     }
 }
 
