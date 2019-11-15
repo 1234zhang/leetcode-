@@ -47,7 +47,24 @@
  */
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        
+        if(preorder.length == 0 || inorder.length == 0){
+            return null;
+        }
+        TreeNode root = helper(preorder, inorder, 0, preorder.length - 1, 0, inorder.length - 1);
+        return root;
+    }
+    public TreeNode helper(int[] pre, int[] in, int preStart, int preEnd, int inStart, int inEnd){
+        if(preStart > preEnd || inStart > inEnd){
+            return null;
+        }
+        TreeNode root = new TreeNode(pre[preStart]);
+        for(int i = 0; i <= inEnd; i++){
+            if(pre[preStart] == in[i]){
+                root.left = helper(pre, in, preStart + 1, preStart + i - inStart, inStart, i - 1);
+                root.right = helper(pre, in,  preStart + i - inStart + 1, preEnd, i + 1, inEnd);
+            }
+        }
+        return root;
     }
 }
 // @lc code=end

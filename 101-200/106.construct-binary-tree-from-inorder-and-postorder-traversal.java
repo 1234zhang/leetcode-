@@ -48,7 +48,25 @@
  */
 class Solution {
     public TreeNode buildTree(int[] inorder, int[] postorder) {
-        
+        if(inorder == null || postorder == null){
+            return null;
+        }
+        TreeNode root = helper(inorder, postorder, 0, inorder.length - 1, 0, postorder.length - 1);
+        return root;
+    }
+
+    public TreeNode helper(int[] in, int[] post, int inStart, int inEnd, int postStart, int postEnd){
+        if(inStart > inEnd && postStart > postEnd){
+            return null;
+        }
+        TreeNode root = new TreeNode(post[postEnd]);
+        for(int i = inStart; i <= inEnd; i++){
+            if(in[i] == post[postEnd]){
+                root.left = helper(in, post, inStart, i - 1, postStart, postStart + i - inStart - 1);
+                root.right = helper(in, post, i + 1, inEnd, postStart + i - inStart, postEnd - 1);
+            }
+        }
+        return root;
     }
 }
 // @lc code=end
