@@ -58,26 +58,22 @@ import java.util.*;
 
 class Solution {
     public void flatten(TreeNode root) {
-        if(root == null){
-            return;
+        while(root != null){
+            if(root.left == null){
+                root = root.right;
+            }else{
+                TreeNode pre = root.left;
+                while(pre.right != null){
+                    pre = pre.right;
+                }
+                pre.right = root.right;
+                root.right = root.left;
+                root.left = null;
+                root = root.right;
+            }
         }
-        flatten(root.left);
-        flatten(root.right);
-
-        root.right = helper(root.left, root.right);
-        root.left = null;
     }
-    public TreeNode helper(TreeNode left, TreeNode right){
-        if(right == null) return right;
-        if(left == null) return left;
-
-        TreeNode flag = left;
-        while(flag.right != null){
-            flag = flag.right;
-        }
-        flag.right = right;
-        return left;
-    }
+    
 }
 // @lc code=end
 
