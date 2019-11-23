@@ -56,27 +56,19 @@
 // @lc code=start
 import java.util.*;
 class Solution {
-    List<String> dic;
-    int len = 0;
     public boolean wordBreak(String s, List<String> wordDict) {
-        dic = wordDict;
-        len = s.length();
-        return helper(s);
-    }
-    public boolean helper(String s){
-        if(s.equals("")){
-            return true;
-        }
-        if(dic.contains(s)){
-            return true;
-        }
-        for(int i = s.length(); i >= 0; i--){
-            String tmp = s.substring(i, s.length());
-            if(dic.contains(tmp)){
-                return helper(s.substring(0, i));
+        HashSet<String> set = new HashSet<>(wordDict);
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+        for(int i = 0; i <= s.length(); i++){
+            for(int j = 0; j < i; j++){
+                if(dp[j] && set.contains(s.substring(j, i))){
+                    dp[i] = true;
+                    break;
+                }
             }
         }
-        return false;
+        return dp[s.length()];
     }
 }
 // @lc code=end
