@@ -43,7 +43,7 @@ class Solution {
            }
            imax = Math.max(imax * num, num);
            imin = Math.min(imin * num, num);
-
+           
            max = Math.max(imax, max);
        }
        return max;
