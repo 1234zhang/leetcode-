@@ -48,9 +48,29 @@
  */
 
 // @lc code=start
+import java.util.*;
 class Solution {
+    List<StringBuffer> list = new ArrayList<>();
     public String convert(String s, int numRows) {
-        
+        if("".equals(s) || s.length() <= numRows || numRows == 1){
+            return s;
+        }
+        for(int i = 0; i < numRows; i++){
+            list.add(new StringBuffer());
+        }
+        char[] chars = s.toCharArray();
+        int i = 0;
+        int flag = -1;
+        for(char c : chars){
+            list.get(i).append(c);
+            if(i == 0 || i == numRows - 1) flag = -flag;
+            i += flag;
+        }
+        StringBuffer result = new StringBuffer();
+        for(StringBuffer str : list){
+            result.append(str);
+        }
+        return result.toString();
     }
 }
 // @lc code=end
