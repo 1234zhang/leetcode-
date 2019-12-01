@@ -44,44 +44,35 @@
 import java.util.*;
 class Solution {
     List<Integer> result = new ArrayList<>();
-    HashSet<String> set = new HashSet<>();
+    Map<String, Integer> map = new HashMap<String, Integer>();
     int target = 0;
     public List<Integer> findSubstring(String s, String[] words) {
-        if("".equals(s) || words.length == 0){
+        if(s == null || s.length() == 0 || words == null || words.length == 0){
             return result;
         }
-        helper(words, 0);
-        for(int i = 0; i < s.length(); i++){
-            if(i + target <= s.length() && set.contains(s.substring(i, i + target))){
-                result.add(i);
+        for(String word : words){
+            map.put(word, map.getOrDefault(word, 0) + 1);
+        }
+        int size = words.length;
+        int len = words[0].length();
+        for(int i = 0; i < len; i++){
+            int left = i, right = i, count = 0;
+            Map<String, Integer> contain = new HashMap<String, Integer>();
+            while(right + len <= s.length()){
+                String tmp = s.substring(right, right + len);
+                contain.put(tmp, contain.getOrDefault(tmp, 0) + 1);
+                right += len;
+                count++;
+                while(contain.getOrDefault(tmp, 0) > map.getOrDefault(tmp, 0)){
+                    String flag = s.substring(left, left + len);
+                    count--;
+                    contain.put(flag, contain.getOrDefault(flag, 0) - 1);
+                    left += len;      
+                }
+                if(count == size) result.add(left);
             }
         }
         return result;
-    }
-    public void helper(String[] words, int flag){
-        if(flag == words.length){
-            StringBuffer sb = new StringBuffer();
-            for(String str : words){
-                sb.append(str);
-            }
-            target = sb.toString().length();
-            set.add(sb.toString());
-            return;
-        }
-        HashSet<String> hash = new HashSet<>();
-        for(int i = flag; i < words.length; i++){
-            if(i == flag || !hash.contains(words[i])){
-                hash.add(words[i]);
-                swap(words, i, flag);
-                helper(words, flag + 1);
-                swap(words, i, flag);
-            }
-        }
-    }
-    public void swap(String[] words, int start, int end){
-        String tmp = words[start];
-        words[start] = words[end];
-        words[end] = tmp;
     }
 }
 // @lc code=end
