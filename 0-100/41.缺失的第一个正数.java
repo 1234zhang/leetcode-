@@ -40,29 +40,44 @@
  */
 
 // @lc code=start
-import java.util.*;
 class Solution {
     public int firstMissingPositive(int[] nums) {
-        if(nums.length == 0){
-            return 0;
-        }
         int n = nums.length;
-        for(int i = 0; i < nums.length; i++){
-            while(nums[i] > 0 && nums[i] < n && nums[i] != i){
-                if(nums[nums[i] % n] == nums[i] % n){
-                    break;
-                }
-                int temp = nums[i];
-                nums[i] = nums[nums[i] %n];
-                nums[temp % n] = nums[i];
+        int contain = 0;
+        for(int i = 0; i < n; i++){
+            if(nums[i] == 1){
+                contain++;
+                break;
+            }
+        }
+        if(contain == 0){
+            return 1;
+        }
+        if(n == 1){
+            return 2;
+        }
+        for(int i = 0; i < n; i++){
+            if(nums[i] <= 0 || nums[i] > n){
+                nums[i] = 1;
+            }
+        }
+        for(int i = 0; i < n; i++){
+            int a = Math.abs(nums[i]);
+            if(a == n){
+                nums[0] = -Math.abs(nums[0]);
+            }else{
+                nums[a] = -Math.abs(nums[a]);
             }
         }
         for(int i = 1; i < n; i++){
-            if(i != nums[i]){
+            if(nums[i] > 0){
                 return i;
             }
         }
-        return nums[0] == n ? n + 1 : n;
+        if(nums[0] > 0){
+            return n;
+        }
+        return n + 1;
     }
 }
 // @lc code=end
