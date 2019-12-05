@@ -55,6 +55,7 @@ class Solution {
         if("".equals(s) || s.length() <= numRows || numRows == 1){
             return s;
         }
+        String
         for(int i = 0; i < numRows; i++){
             list.add(new StringBuffer());
         }
